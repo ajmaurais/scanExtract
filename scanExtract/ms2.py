@@ -5,7 +5,7 @@ MS2_SCAN_ELEMS = ['scan', 'rt', 'pre_int', 'ion_inj_time', 'activation_type', 'p
                  'pre_mz', 'pre_charge']
 
 class Ms2Scan(object):
-    __slots__ = [MS2_SCAN_ELEMS]
+    __slots__ = MS2_SCAN_ELEMS
 
     def __init__(self):
         self.scan = ''
