@@ -10,14 +10,14 @@ class Ms2Scan(object):
     def __init__(self):
         self.scan = ''
         self.rt = ''
-        self.file = ''
+        self.pre_scan = ''
         self.pre_scan = ''
         self.pre_int = ''
         self.ion_inj_time = ''
         self.activation_type = ''
         self.ins_type = ''
-        self._pre_charge = ''
-        self._pre_mz = ''
+        self.pre_charge = ''
+        self.pre_mz = ''
 
     def _add_str(self, member, append, delim = '|'):
         if not member:
@@ -26,10 +26,10 @@ class Ms2Scan(object):
             return '{}{}{}'.format(member, delim, append)
 
     def add_pre_charge(self, s):
-        self._pre_charge = self._add_str(self._pre_charge, s)
+        self.pre_charge = self._add_str(self.pre_charge, s)
 
     def add_pre_mz(self, s):
-        self._pre_mz = self._add_str(self._pre_mz, s)
+        self.pre_mz = self._add_str(self.pre_mz, s)
 
     @staticmethod
     def printHeaders(out, delim = '\t'):
@@ -92,8 +92,8 @@ class Ms2Scans(object):
                     elif scanMatch.group(2) == 'InstrumentType':
                         scanTemp.ins_type = scanMatch.group(3)
                     elif scanMatch.group(1) == 'Z':
-                        scanTemp._pre_charge = scanMatch.group(2)
-                        scanTemp._pre_mz = scanMatch.group(3)
+                        scanTemp.pre_charge = scanMatch.group(2)
+                        scanTemp.pre_mz = scanMatch.group(3)
 
                         if multipleMatch == 'first' or multipleMatch == 'one_line':
                             self.scans.append(scanTemp)
@@ -109,7 +109,7 @@ class Ms2Scans(object):
                                 scanTemp[-1].add_pre_charge(scanMatch.group(2))
                                 scanTemp[-1].add_pre_mz(scanMatch.group(3))
                             elif multipleMatch == 'all':
-                                scanTemp._pre_charge = scanMatch.group(2)
+                                scanTemp.pre_charge = scanMatch.group(2)
                                 scanTemp._pre_mz = scanMatch.group(3)
                                 self.scans.append(scanTemp)
                             else:
